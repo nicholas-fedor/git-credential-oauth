@@ -29,7 +29,7 @@ jobs:
           persist-credentials: false
 
       - name: Clean Cache
-        uses: ./.github/actions/clean-cache
+        uses: ./.github/actions/clean-cache # zizmor: ignore[self-repository] actionlint rejects $/ until rhysd/actionlint#711
         with:
           gh-token: ${{ secrets.GITHUB_TOKEN }}
           gh-repo: ${{ github.repository }}
