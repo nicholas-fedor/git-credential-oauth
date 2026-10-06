@@ -1,0 +1,140 @@
+# yaml-language-server: $schema=https://taskfile.dev/schema.json
+
+version: "3"
+
+silent: true
+
+# LDFLAGS is shared by the build and install tasks so both stamp identical
+# version metadata. VERSION, COMMIT_SHA, and BUILD_TIME are dynamic, so every
+# invocation reads fresh values instead of a value cached in the Taskfile.
+vars:
+  VERSION:
+    sh: git describe --tags --abbrev=0 2>/dev/null || echo dev
+  COMMIT_SHA:
+    sh: git rev-parse --short HEAD 2>/dev/null || echo unknown
+  BUILD_TIME:
+    sh: date -u +%Y-%m-%dT%H:%M:%SZ
+  LDFLAGS: >-
+    -X 'github.com/nicholas-fedor/git-credential-oauth/internal/version.Version={{.VERSION}}'
+    -X 'github.com/nicholas-fedor/git-credential-oauth/internal/version.CommitSHA={{.COMMIT_SHA}}'
+    -X 'github.com/nicholas-fedor/git-credential-oauth/internal/version.BuildTime={{.BUILD_TIME}}'
+
+tasks:
+  default:
+    desc: "Show available tasks"
+    cmds:
+      - task --list-all
+
+  build:
+    desc: "Build the application binary to ./bin/git-credential-oauth with version info injected"
+    cmds:
+      - go build -ldflags "{{.LDFLAGS}}" -o bin/git-credential-oauth .
+
+  install:
+    desc: "Install the application to $GOBIN (or $GOPATH/bin)"
+    cmds:
+      - go install -ldflags "{{.LDFLAGS}}" .
+
+  run:
+    desc: "Run the application"
+    cmds:
+      - go run .
+
+  docs:
+    desc: "Regenerate the Hugo CLI reference under ./docs/content/cli-reference"
+    cmds:
+      - go run ./tools/docgen -out ./docs/content/cli-reference
+
+  fmt:
+    desc: "Format code with golangci-lint fmt"
+    cmds:
+      - golangci-lint fmt --config build/golangci-lint/golangci-lint.yaml ./...
+
+  vet:
+    desc: "Run go vet"
+    cmds:
+      - go vet ./...
+
+  test:
+    desc: "Run product tests with race detection and a coverage gate"
+    vars:
+      COVERAGE_MIN: '80'
+      PKGS:
+        sh: go list ./... | grep -v /research$ | grep -v /mocks$ | tr '\n' ' '
+    cmds:
+      - go test -race -count=1 -coverprofile=coverage.out {{.PKGS}}
+      - go tool cover -func=coverage.out
+      - |
+        go tool cover -func=coverage.out \
+          | awk -v min={{.COVERAGE_MIN}} '/^total:/ { gsub(/%/, "", $3);
+              if ($3 + 0 < min + 0) {
+                printf "coverage %.1f%% is below the %s%% gate\n", $3, min
+                exit 1
+              }
+              printf "coverage %.1f%% meets the %s%% gate\n", $3, min }'
+
+  lint:
+    desc: "Run linter"
+    cmds:
+      - golangci-lint run --config build/golangci-lint/golangci-lint.yaml ./...
+
+  bench:
+    desc: "Run benchmarks"
+    vars:
+      PKGS:
+        sh: go list ./... | grep -v /research$ | grep -v /mocks$ | tr '\n' ' '
+    cmds:
+      - go test -bench=. -benchmem -run='^$' {{.PKGS}}
+
+  fuzz:
+    desc: "Run fuzz targets for 30s each, or FUZZTIME=<duration> to override"
+    # go test fuzzes one target in one package per run, so the loop lists each
+    # package's fuzz targets and runs them one at a time, anchored so that one
+    # name cannot match another. set -eu aborts on the first failure.
+    # FUZZTIME has no vars entry: a declared var would shadow the command line.
+    vars:
+      PKGS:
+        sh: go list ./... | grep -v /research$ | grep -v /mocks$ | tr '\n' ' '
+    cmds:
+      - |
+        set -eu
+        for pkg in {{.PKGS}}; do
+          for target in $(go test -list '^Fuzz' "$pkg" | grep '^Fuzz' || true); do
+            echo "fuzzing $pkg $target"
+            go test -run='^$' -fuzz="^${target}\$" -fuzztime={{.FUZZTIME | default "30s"}} "$pkg"
+          done
+        done
+
+  mocks:
+    desc: "Generate mocks with mockery"
+    cmds:
+      - mockery --config=build/mockery/mockery.yaml
+
+  vuln:
+    desc: "Report known vulnerabilities in the dependency graph"
+    cmds:
+      - govulncheck ./...
+
+  release:
+    desc: "Publish a release from the current tag"
+    cmds:
+      - goreleaser release --clean --config build/goreleaser/goreleaser.yaml
+
+  release:snapshot:
+    desc: "Build every target locally without publishing anything"
+    cmds:
+      - goreleaser release --snapshot --clean --config build/goreleaser/goreleaser.yaml
+
+  check:
+    desc: "Run fmt, vet, test, lint, then vuln"
+    cmds:
+      - task: fmt
+      - task: vet
+      - task: test
+      - task: lint
+      - task: vuln
+
+  clean:
+    desc: "Remove build artifacts"
+    cmds:
+      - rm -rf bin/ dist/

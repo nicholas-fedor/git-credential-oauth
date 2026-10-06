@@ -1,0 +1,20 @@
+---
+title: {{ .Title }}
+description: Every git-credential-oauth command and flag, generated from the program itself
+weight: 5
+type: docs
+---
+
+{{ .Description }}
+
+Git runs `get` itself, and ignores this helper's answer to `store` and `erase`, which are not listed. The commands you run are `configure` and `unconfigure`; the rest are for checking an installation.
+
+| Command | Description |
+|---------|-------------|
+{{- range .Sections }}
+{{- range .SubCommands }}
+| [{{ .Name }}]({{ .URL }}) | {{ .Description }} |
+{{- end }}
+{{- end }}
+
+The global flags `--device`, `--bearer`, and `--verbose` are accepted by every command. In a `credential.helper` line they go before the operation Git appends, as in `oauth --device`.

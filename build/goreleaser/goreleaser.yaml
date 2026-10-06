@@ -1,0 +1,185 @@
+################################################################################
+#                                                                              #
+#                  GoReleaser OSS Stable Release Configuration                 #
+#                                                                              #
+# Project: git-credential-oauth                                                #
+# Repository: https://github.com/nicholas-fedor/git-credential-oauth/          #
+#                                                                              #
+# GoReleaser URL: https://goreleaser.com/                                      #
+# yaml-language-server: $schema=https://goreleaser.com/static/schema.json      #
+# vim: set ts=2 sw=2 tw=0 fo=cnqoj                                             #
+#                                                                              #
+################################################################################
+
+################################################################################
+# Configuration Version
+version: 2
+################################################################################
+
+################################################################################
+# Project Configuration
+# https://goreleaser.com/customization/project/
+################################################################################
+project_name: "git-credential-oauth"
+
+################################################################################
+# Verifiable Builds (Supply Chain Security)
+# https://goreleaser.com/customization/builds/verifiable_builds/
+################################################################################
+gomod:
+  proxy: true
+  env:
+    - GOPROXY=https://proxy.golang.org,direct
+    - GOSUMDB=sum.golang.org
+
+################################################################################
+# Go Binary Build Configuration
+# https://goreleaser.com/customization/builds/go/
+################################################################################
+builds:
+  - id: "git-credential-oauth-binary"
+    main: "main.go"
+    binary: "git-credential-oauth"
+    flags:
+      - -trimpath
+    ldflags:
+      - -s -w
+      - -X github.com/nicholas-fedor/git-credential-oauth/internal/version.Version={{.Version}}
+      - -X github.com/nicholas-fedor/git-credential-oauth/internal/version.CommitSHA={{.Commit}}
+      - -X github.com/nicholas-fedor/git-credential-oauth/internal/version.BuildTime={{.Date}}
+    env:
+      - CGO_ENABLED=0
+    goos:
+      - linux
+      - windows
+      - darwin
+    goarch:
+      - amd64
+      - "386"
+      - arm
+      - arm64
+      - riscv64
+    ignore:
+      - goos: windows
+        goarch: riscv64
+      - goos: windows
+        goarch: arm
+      - goos: darwin
+        goarch: "386"
+      - goos: darwin
+        goarch: arm
+      - goos: darwin
+        goarch: riscv64
+    mod_timestamp: "{{ .CommitTimestamp }}"
+
+################################################################################
+# Binary Archive Configuration
+# https://goreleaser.com/customization/package/archives/
+################################################################################
+archives:
+  - formats: ["tar.gz"]
+    name_template: >-
+      {{- .ProjectName }}_
+      {{- if eq .Os "darwin" }}macOS
+      {{- else }}{{ .Os }}{{ end }}_
+      {{- if eq .Arch "amd64" }}amd64
+      {{- else if eq .Arch "386" }}i386
+      {{- else if eq .Arch "arm" }}armhf
+      {{- else if eq .Arch "arm64" }}arm64v8
+      {{- else if eq .Arch "riscv64" }}riscv64
+      {{- else }}{{ .Arch }}{{ end }}_
+      {{- .Version -}}
+    format_overrides:
+      - goos: windows
+        formats: ["zip"]
+    files:
+      - LICENSE.md
+    builds_info:
+      mtime: "{{ .CommitDate }}"
+
+################################################################################
+# Linux Distro Packages (nFPM)
+# https://goreleaser.com/customization/package/nfpm/
+#
+# Attaches .deb, .rpm, .apk, and Arch packages to the GitHub Release.
+# File names match the archives (no ConventionalFileName: GitHub rewrites
+# '~' and would invalidate checksums).
+################################################################################
+nfpms:
+  - id: git-credential-oauth
+    package_name: git-credential-oauth
+    ids:
+      - git-credential-oauth-binary
+    vendor: Nicholas Fedor
+    homepage: https://github.com/nicholas-fedor/git-credential-oauth
+    maintainer: Nicholas Fedor <nick@nickfedor.com>
+    description: Git credential OAuth helper.
+    license: AGPL-3.0-or-later
+    formats:
+      - deb
+      - rpm
+      - apk
+      - archlinux
+    bindir: /usr/bin
+    section: utils
+    priority: optional
+    mtime: "{{ .CommitDate }}"
+    file_name_template: >-
+      {{- .PackageName }}_
+      {{- .Os }}_
+      {{- if eq .Arch "amd64" }}amd64
+      {{- else if eq .Arch "386" }}i386
+      {{- else if eq .Arch "arm" }}armhf
+      {{- else if eq .Arch "arm64" }}arm64v8
+      {{- else if eq .Arch "riscv64" }}riscv64
+      {{- else }}{{ .Arch }}{{ end }}_
+      {{- .Version }}
+    contents:
+      - src: LICENSE.md
+        dst: /usr/share/doc/git-credential-oauth/LICENSE
+
+################################################################################
+# Source Archive Configuration
+################################################################################
+source:
+  enabled: true
+  name_template: "git-credential-oauth.src"
+
+################################################################################
+# Checksums Configuration
+# https://goreleaser.com/customization/package/checksum/
+################################################################################
+checksum:
+  name_template: "checksums.txt"
+
+################################################################################
+# Software Bill of Materials (SBOM) Configuration
+# https://goreleaser.com/customization/sbom/
+################################################################################
+sboms:
+  - id: binaries
+    artifacts: archive
+  - id: source
+    artifacts: source
+
+################################################################################
+# Signing Configuration (Cosign - Keyless OIDC)
+# https://goreleaser.com/customization/sign/
+################################################################################
+signs:
+  - id: cosign-checksums
+    cmd: cosign
+    args:
+      - "sign-blob"
+      - "--bundle=${signature}"
+      - "${artifact}"
+      - "--yes"
+    artifacts: checksum
+    output: true
+
+################################################################################
+# Changelog Configuration
+# https://goreleaser.com/customization/changelog/
+################################################################################
+changelog:
+  disable: true
