@@ -12,6 +12,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Add oauth git credential helper by @nicholas-fedor
 
+### Chores
+
+- Update anchore/sbom-action action to v0.24.3 by @renovate[bot] in [#5](https://github.com/nicholas-fedor/git-credential-oauth/pull/5)
+- Update step-security/harden-runner action to v2.22.0 by @renovate[bot] in [#6](https://github.com/nicholas-fedor/git-credential-oauth/pull/6)
+
 ### Fixed
 
 - Fix platform assumptions in the browser and git tests by @nicholas-fedor in [#3](https://github.com/nicholas-fedor/git-credential-oauth/pull/3)
@@ -22,8 +27,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### New Contributors
 
+- @renovate[bot] made their first contribution in [#5](https://github.com/nicholas-fedor/git-credential-oauth/pull/5)
+- @github-actions[bot] made their first contribution in [#4](https://github.com/nicholas-fedor/git-credential-oauth/pull/4)
 - @nicholas-fedor made their first contribution in [#3](https://github.com/nicholas-fedor/git-credential-oauth/pull/3)
-- @github-actions[bot] made their first contribution in [#2](https://github.com/nicholas-fedor/git-credential-oauth/pull/2)
 
 ## Compare Releases
 
