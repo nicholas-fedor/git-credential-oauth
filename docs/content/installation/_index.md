@@ -97,7 +97,7 @@ sudo pacman -U git-credential-oauth_linux_*.pkg.tar.zst
 
 The pattern matches the one package you downloaded; keep only one version in the directory.
 
-Linux packages and archives are published for `amd64`, `i386`, `armhf`, `arm64v8`, and `riscv64`. macOS archives are `amd64` and `arm64v8`, and Windows archives are `amd64`, `i386`, and `arm64v8`.
+Linux archives and `.deb`, `.rpm`, and `.apk` packages are published for `amd64`, `i386`, `armhf`, `arm64v8`, and `riscv64`. Arch packages are published for `amd64`, `i386`, and `arm64v8` only. On other architectures the install script uses the archive instead. macOS archives are `amd64` and `arm64v8`, and Windows archives are `amd64`, `i386`, and `arm64v8`.
 
 Packages install to `/usr/bin`, so `git-credential-oauth` is on `PATH` for every user with no further setup.
 

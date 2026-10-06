@@ -124,6 +124,9 @@ nfpms:
     section: utils
     priority: optional
     mtime: "{{ .CommitDate }}"
+    archlinux:
+      packager: Nicholas Fedor <nick@nickfedor.com>
+
     file_name_template: >-
       {{- .PackageName }}_
       {{- .Os }}_
