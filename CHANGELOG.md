@@ -12,13 +12,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Add oauth git credential helper by @nicholas-fedor
 
+### Fixed
+
+- Fix platform assumptions in the browser and git tests by @nicholas-fedor in [#3](https://github.com/nicholas-fedor/git-credential-oauth/pull/3)
+
 ### Removed
 
 - Remove docker hub config and scope release secrets by @nicholas-fedor in [#1](https://github.com/nicholas-fedor/git-credential-oauth/pull/1)
 
 ### New Contributors
 
-- @nicholas-fedor made their first contribution in [#1](https://github.com/nicholas-fedor/git-credential-oauth/pull/1)
+- @nicholas-fedor made their first contribution in [#3](https://github.com/nicholas-fedor/git-credential-oauth/pull/3)
+- @github-actions[bot] made their first contribution in [#2](https://github.com/nicholas-fedor/git-credential-oauth/pull/2)
 
 ## Compare Releases
 
