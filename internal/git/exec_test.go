@@ -48,7 +48,12 @@ func TestInvokeReportsAMissingBinary(t *testing.T) {
 	require.True(t, ok, "error %v", err)
 	assert.Equal(t, ExitNeverStarted, gitErr.ExitCode)
 	assert.Equal(t, []string{"version"}, gitErr.Args)
-	require.ErrorIs(t, err, fs.ErrNotExist)
+
+	// Unix reports a missing absolute path as a missing file. Windows looks for
+	// an executable extension first and reports it as not found instead.
+	assert.True(t,
+		errors.Is(err, fs.ErrNotExist) || errors.Is(err, exec.ErrNotFound),
+		"cause %v", err)
 }
 
 // TestInvokeCapturesOutputAndExitStatus runs the real git binary.

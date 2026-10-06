@@ -6,6 +6,7 @@ package browser
 import (
 	"context"
 	"errors"
+	"runtime"
 	"testing"
 
 	"github.com/stretchr/testify/assert"
@@ -108,6 +109,9 @@ func TestOpenPassesResolvedNameNotPath(t *testing.T) {
 }
 
 // TestOpenDefaultsToProcessGOOS checks an empty GOOS falls back.
+//
+// The fallback is the platform the test runs on, so the expected command is
+// computed from runtime.GOOS rather than written out.
 func TestOpenDefaultsToProcessGOOS(t *testing.T) {
 	t.Parallel()
 
@@ -125,7 +129,7 @@ func TestOpenDefaultsToProcessGOOS(t *testing.T) {
 
 	require.NoError(t, opener.Open(t.Context(), "https://example.com"))
 
-	want, _ := Command("", "https://example.com")
+	want, _ := Command(runtime.GOOS, "https://example.com")
 	assert.Equal(t, want, gotName)
 }
 
