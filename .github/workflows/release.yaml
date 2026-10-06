@@ -36,22 +36,19 @@ jobs:
   test:
     name: Run Tests
     needs: [validate-tag]
-    uses: ./.github/workflows/test.yaml
-    secrets: inherit
+    uses: ./.github/workflows/test.yaml # zizmor: ignore[self-repository] actionlint rejects $/ until rhysd/actionlint#711
+    secrets:
+      CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
     permissions:
       contents: read # For code checkout
   build:
     name: Run Build
     needs: [test]
-    uses: ./.github/workflows/build.yaml
+    uses: ./.github/workflows/build.yaml # zizmor: ignore[self-repository] actionlint rejects $/ until rhysd/actionlint#711
     permissions:
       contents: write # For code checkout and publishing releases
-      packages: write # For pushing images to registries
-      attestations: write # For generating provenance and SBOMs
-      id-token: write # For OIDC auth to Docker Hub and GHCR
-    secrets:
-      DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
-      DOCKERHUB_TOKEN: ${{ secrets.DOCKERHUB_TOKEN }}
+      attestations: write # For generating build provenance
+      id-token: write # For keyless Sigstore signing and attestations
     with:
       ENVIRONMENT: CI-Release
       DRY_RUN: ${{ inputs.DRY_RUN || false }}
@@ -62,4 +59,4 @@ jobs:
     if: ${{ !inputs.DRY_RUN }}
     permissions:
       contents: read
-    uses: ./.github/workflows/update-go-docs.yaml
+    uses: ./.github/workflows/update-go-docs.yaml # zizmor: ignore[self-repository] actionlint rejects $/ until rhysd/actionlint#711
