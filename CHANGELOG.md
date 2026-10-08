@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Chores
 
+- Update github/codeql-action action to v4.38.3 by @renovate[bot] in [#15](https://github.com/nicholas-fedor/git-credential-oauth/pull/15)
 - Update step-security/harden-runner action to v2.22.1 by @renovate[bot] in [#13](https://github.com/nicholas-fedor/git-credential-oauth/pull/13)
 - Update actions/upload-artifact action to v7.0.2 by @renovate[bot] in [#11](https://github.com/nicholas-fedor/git-credential-oauth/pull/11)
 
