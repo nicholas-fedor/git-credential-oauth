@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Chores
 
+- Update nicholas-fedor/actionlint-action action to v1.0.19 by @renovate[bot] in [#19](https://github.com/nicholas-fedor/git-credential-oauth/pull/19)
 - Update go module directive to v1.27.2 by @renovate[bot] in [#17](https://github.com/nicholas-fedor/git-credential-oauth/pull/17)
 - Update github/codeql-action action to v4.38.3 by @renovate[bot] in [#15](https://github.com/nicholas-fedor/git-credential-oauth/pull/15)
 - Update step-security/harden-runner action to v2.22.1 by @renovate[bot] in [#13](https://github.com/nicholas-fedor/git-credential-oauth/pull/13)
