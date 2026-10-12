@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Chores
 
+- Update ossf/scorecard-action action to v2.5.0 by @renovate[bot] in [#24](https://github.com/nicholas-fedor/git-credential-oauth/pull/24)
 - Update module golang.org/x/text to v0.43.0 by @renovate[bot] in [#23](https://github.com/nicholas-fedor/git-credential-oauth/pull/23)
 - Update nicholas-fedor/govulncheck-action action to v1.1.0 by @renovate[bot] in [#20](https://github.com/nicholas-fedor/git-credential-oauth/pull/20)
 - Update nicholas-fedor/actionlint-action action to v1.0.19 by @renovate[bot] in [#19](https://github.com/nicholas-fedor/git-credential-oauth/pull/19)
