@@ -13,6 +13,6 @@ require (
 
 require (
 	github.com/inconshreveable/mousetrap v1.1.0 // indirect
-	github.com/stretchr/objx v0.5.3 // indirect
+	github.com/stretchr/objx v0.7.0 // indirect
 	go.yaml.in/yaml/v3 v3.0.5 // indirect
 )
