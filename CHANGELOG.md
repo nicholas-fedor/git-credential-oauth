@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Chores
 
+- Update module github.com/stretchr/objx to v0.8.0 by @renovate[bot] in [#32](https://github.com/nicholas-fedor/git-credential-oauth/pull/32)
 - Update module github.com/stretchr/objx to v0.7.0 by @renovate[bot] in [#30](https://github.com/nicholas-fedor/git-credential-oauth/pull/30)
 - Update goreleaser/goreleaser-action action to v7.3.0 by @renovate[bot] in [#27](https://github.com/nicholas-fedor/git-credential-oauth/pull/27)
 - Update nicholas-fedor/govulncheck-action action to v1.1.1 by @renovate[bot] in [#26](https://github.com/nicholas-fedor/git-credential-oauth/pull/26)
