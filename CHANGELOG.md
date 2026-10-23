@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Chores
 
+- Update securego/gosec action to v2.30.0 by @renovate[bot] in [#43](https://github.com/nicholas-fedor/git-credential-oauth/pull/43)
 - Update github/codeql-action action to v4.39.1 by @renovate[bot] in [#41](https://github.com/nicholas-fedor/git-credential-oauth/pull/41)
 - Update nicholas-fedor/govulncheck-action action to v1.1.2 by @renovate[bot] in [#40](https://github.com/nicholas-fedor/git-credential-oauth/pull/40)
 - Update step-security/harden-runner action to v2.22.2 by @renovate[bot] in [#37](https://github.com/nicholas-fedor/git-credential-oauth/pull/37)
