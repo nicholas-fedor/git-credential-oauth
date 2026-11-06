@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Chores
 
+- Update step-security/harden-runner action to v2.22.4 by @renovate[bot] in [#57](https://github.com/nicholas-fedor/git-credential-oauth/pull/57)
 - Update module github.com/spf13/pflag to v1.1.0 by @renovate[bot] in [#56](https://github.com/nicholas-fedor/git-credential-oauth/pull/56)
 - Update github/codeql-action action to v4.39.3 by @renovate[bot] in [#51](https://github.com/nicholas-fedor/git-credential-oauth/pull/51)
 - Update sigstore/cosign-installer action to v4.1.3 by @renovate[bot] in [#52](https://github.com/nicholas-fedor/git-credential-oauth/pull/52)
