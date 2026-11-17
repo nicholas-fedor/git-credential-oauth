@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Chores
 
+- Update actions/setup-go action to v7.1.0 by @renovate[bot] in [#68](https://github.com/nicholas-fedor/git-credential-oauth/pull/68)
 - Update go module directive to v1.27.4 by @renovate[bot] in [#66](https://github.com/nicholas-fedor/git-credential-oauth/pull/66)
 - Update peter-evans/create-pull-request action to v8.1.3 by @renovate[bot] in [#64](https://github.com/nicholas-fedor/git-credential-oauth/pull/64)
 - Update module golang.org/x/text to v0.44.0 by @renovate[bot] in [#62](https://github.com/nicholas-fedor/git-credential-oauth/pull/62)
