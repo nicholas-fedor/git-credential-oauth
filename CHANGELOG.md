@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Chores
 
+- Add tasks that tag the next release by @nicholas-fedor in [#70](https://github.com/nicholas-fedor/git-credential-oauth/pull/70)
 - Update actions/setup-go action to v7.1.0 by @renovate[bot] in [#68](https://github.com/nicholas-fedor/git-credential-oauth/pull/68)
 - Update go module directive to v1.27.4 by @renovate[bot] in [#66](https://github.com/nicholas-fedor/git-credential-oauth/pull/66)
 - Update peter-evans/create-pull-request action to v8.1.3 by @renovate[bot] in [#64](https://github.com/nicholas-fedor/git-credential-oauth/pull/64)
