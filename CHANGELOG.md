@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Chores
 
+- Update ossf/scorecard-action action to v2.6.0 by @renovate[bot] in [#74](https://github.com/nicholas-fedor/git-credential-oauth/pull/74)
 - Update step-security/harden-runner action to v2.23.0 by @renovate[bot] in [#72](https://github.com/nicholas-fedor/git-credential-oauth/pull/72)
 
 ## [0.1.2] - 2026-11-18
