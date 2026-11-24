@@ -10,6 +10,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Chores
 
+- Update sigstore/cosign-installer action to v4.1.4 by @renovate[bot] in [#81](https://github.com/nicholas-fedor/git-credential-oauth/pull/81)
+- Update github/codeql-action action to v4.39.5 by @renovate[bot] in [#80](https://github.com/nicholas-fedor/git-credential-oauth/pull/80)
 - Update anchore/sbom-action action to v0.24.4 by @renovate[bot] in [#78](https://github.com/nicholas-fedor/git-credential-oauth/pull/78)
 - Update github/codeql-action action to v4.39.4 by @renovate[bot] in [#76](https://github.com/nicholas-fedor/git-credential-oauth/pull/76)
 - Update ossf/scorecard-action action to v2.6.0 by @renovate[bot] in [#74](https://github.com/nicholas-fedor/git-credential-oauth/pull/74)
